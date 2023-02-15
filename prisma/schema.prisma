@@ -22,6 +22,8 @@ model Order {
   createdAt  DateTime  @default(now())
   customer   Customer? @relation(fields: [customerId], references: [id])
   customerId String?
+  sales      Sales?    @relation(fields: [salesId], references: [id])
+  salesId    String?
   discount   Float?
   id         String    @id @default(cuid())
   product    Product?  @relation(fields: [productId], references: [id])
@@ -40,6 +42,7 @@ model Customer {
   id        String   @id @default(cuid())
   lastName  String?
   orders    Order[]
+  sales     Sales[]
   phone     String?
   updatedAt DateTime @updatedAt
 }
@@ -64,4 +67,14 @@ model Product {
   name        String?
   orders      Order[]
   updatedAt   DateTime @updatedAt
+}
+
+model Sales {
+  createdAt  DateTime  @default(now())
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  orders     Order[]
+  customerId String?
+  id         String    @id @default(cuid())
+  totalPrice Int?
+  updatedAt  DateTime  @updatedAt
 }
