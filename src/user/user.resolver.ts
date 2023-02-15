@@ -8,7 +8,7 @@ import { User } from "./base/User";
 import { UserService } from "./user.service";
 
 @graphql.Resolver(() => User)
-@common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
+// @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 export class UserResolver extends UserResolverBase {
   constructor(
     protected readonly service: UserService,
