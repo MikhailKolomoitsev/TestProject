@@ -42,7 +42,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "create",
-    possession: "any",
+    possession: "any"
   })
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Customer })
@@ -54,9 +54,9 @@ export class CustomerControllerBase {
 
         address: data.address
           ? {
-              connect: data.address,
+              connect: data.address
             }
-          : undefined,
+          : undefined
       },
       select: {
         address: {
@@ -71,8 +71,8 @@ export class CustomerControllerBase {
         id: true,
         lastName: true,
         phone: true,
-        updatedAt: true,
-      },
+        updatedAt: true
+      }
     });
   }
 
@@ -80,7 +80,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "read",
-    possession: "any",
+    possession: "any"
   })
   @common.Get()
   @swagger.ApiOkResponse({ type: [Customer] })
@@ -93,8 +93,8 @@ export class CustomerControllerBase {
       select: {
         address: {
           select: {
-            id: true,
-          },
+            id: true
+          }
         },
 
         createdAt: true,
@@ -103,8 +103,8 @@ export class CustomerControllerBase {
         id: true,
         lastName: true,
         phone: true,
-        updatedAt: true,
-      },
+        updatedAt: true
+      }
     });
   }
 
@@ -112,7 +112,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "read",
-    possession: "own",
+    possession: "own"
   })
   @common.Get("/:id")
   @swagger.ApiOkResponse({ type: Customer })
@@ -126,8 +126,8 @@ export class CustomerControllerBase {
       select: {
         address: {
           select: {
-            id: true,
-          },
+            id: true
+          }
         },
 
         createdAt: true,
@@ -136,8 +136,8 @@ export class CustomerControllerBase {
         id: true,
         lastName: true,
         phone: true,
-        updatedAt: true,
-      },
+        updatedAt: true
+      }
     });
     if (result === null) {
       throw new errors.NotFoundException(
@@ -151,7 +151,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
-    possession: "any",
+    possession: "any"
   })
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: Customer })
@@ -169,15 +169,15 @@ export class CustomerControllerBase {
 
           address: data.address
             ? {
-                connect: data.address,
+                connect: data.address
               }
-            : undefined,
+            : undefined
         },
         select: {
           address: {
             select: {
-              id: true,
-            },
+              id: true
+            }
           },
 
           createdAt: true,
@@ -186,10 +186,10 @@ export class CustomerControllerBase {
           id: true,
           lastName: true,
           phone: true,
-          updatedAt: true,
-        },
+          updatedAt: true
+        }
       });
-    } catch (error) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`
@@ -202,7 +202,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "delete",
-    possession: "any",
+    possession: "any"
   })
   @common.Delete("/:id")
   @swagger.ApiOkResponse({ type: Customer })
@@ -217,8 +217,8 @@ export class CustomerControllerBase {
         select: {
           address: {
             select: {
-              id: true,
-            },
+              id: true
+            }
           },
 
           createdAt: true,
@@ -227,10 +227,10 @@ export class CustomerControllerBase {
           id: true,
           lastName: true,
           phone: true,
-          updatedAt: true,
-        },
+          updatedAt: true
+        }
       });
-    } catch (error) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`
@@ -244,7 +244,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "read",
-    possession: "any",
+    possession: "any"
   })
   @common.Get("/:id/orders")
   @ApiNestedQuery(OrderFindManyArgs)
@@ -260,8 +260,8 @@ export class CustomerControllerBase {
 
         customer: {
           select: {
-            id: true,
-          },
+            id: true
+          }
         },
 
         discount: true,
@@ -269,14 +269,14 @@ export class CustomerControllerBase {
 
         product: {
           select: {
-            id: true,
-          },
+            id: true
+          }
         },
 
         quantity: true,
         totalPrice: true,
-        updatedAt: true,
-      },
+        updatedAt: true
+      }
     });
     if (results === null) {
       throw new errors.NotFoundException(
@@ -289,7 +289,7 @@ export class CustomerControllerBase {
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
-    possession: "any",
+    possession: "any"
   })
   @common.Post("/:id/orders")
   async connectOrders(
@@ -298,20 +298,20 @@ export class CustomerControllerBase {
   ): Promise<void> {
     const data = {
       orders: {
-        connect: body,
-      },
+        connect: body
+      }
     };
     await this.service.update({
       where: params,
       data,
-      select: { id: true },
+      select: { id: true }
     });
   }
 
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
-    possession: "any",
+    possession: "any"
   })
   @common.Patch("/:id/orders")
   async updateOrders(
@@ -320,20 +320,20 @@ export class CustomerControllerBase {
   ): Promise<void> {
     const data = {
       orders: {
-        set: body,
-      },
+        set: body
+      }
     };
     await this.service.update({
       where: params,
       data,
-      select: { id: true },
+      select: { id: true }
     });
   }
 
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
-    possession: "any",
+    possession: "any"
   })
   @common.Delete("/:id/orders")
   async disconnectOrders(
@@ -342,13 +342,13 @@ export class CustomerControllerBase {
   ): Promise<void> {
     const data = {
       orders: {
-        disconnect: body,
-      },
+        disconnect: body
+      }
     };
     await this.service.update({
       where: params,
       data,
-      select: { id: true },
+      select: { id: true }
     });
   }
 }
